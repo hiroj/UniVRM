@@ -317,7 +317,7 @@ namespace UniJSON
             }
         }
 
-        internal class ValidationResult
+        public class ValidationResult
         {
             public bool IsIgnorable;
             public JsonSchemaValidationException Ex;
@@ -325,9 +325,9 @@ namespace UniJSON
 
         public static class GenericValidator<T>
         {
-            class ObjectValidator
+            public class ObjectValidator
             {
-                delegate JsonSchemaValidationException FieldValidator(
+                public delegate JsonSchemaValidationException FieldValidator(
                     JsonSchema s, JsonSchemaValidationContext c, T o, out bool isIgnorable);
 
                 Dictionary<string, FieldValidator> m_validators;
@@ -335,13 +335,13 @@ namespace UniJSON
                 static FieldValidator CreateFieldValidator(FieldInfo fi)
                 {
                     var mi = typeof(ObjectValidator).GetMethod("_CreateFieldValidator",
-                        BindingFlags.Static | BindingFlags.NonPublic)
+                        BindingFlags.Static | BindingFlags.Public)
                         ;
                     var g = mi.MakeGenericMethod(fi.FieldType);
                     return GenericInvokeCallFactory.StaticFunc<FieldInfo, FieldValidator>(g)(fi);
                 }
 
-                static FieldValidator _CreateFieldValidator<U>(FieldInfo fi)
+                public static FieldValidator _CreateFieldValidator<U>(FieldInfo fi)
                 {
                     var getter = (Func<T, U>)((t) => (U)fi.GetValue(t));
 
@@ -484,11 +484,11 @@ namespace UniJSON
             return GenericValidator<T>.Validate(Required, Properties, c, o);
         }
 
-        static class GenericSerializer<T>
+        public static class GenericSerializer<T>
         {
-            class Serializer
+            public class Serializer
             {
-                delegate void FieldSerializer(JsonSchema s, JsonSchemaValidationContext c, IFormatter f, T o,
+                public delegate void FieldSerializer(JsonSchema s, JsonSchemaValidationContext c, IFormatter f, T o,
                     Dictionary<string, ValidationResult> vRes, string[] deps);
 
                 Dictionary<string, FieldSerializer> m_serializers;
@@ -496,12 +496,12 @@ namespace UniJSON
                 static FieldSerializer CreateFieldSerializer(FieldInfo fi)
                 {
                     var mi = typeof(Serializer).GetMethod("_CreateFieldSerializer",
-                        BindingFlags.Static | BindingFlags.NonPublic);
+                        BindingFlags.Static | BindingFlags.Public);
                     var g = mi.MakeGenericMethod(fi.FieldType);
                     return GenericInvokeCallFactory.StaticFunc<FieldInfo, FieldSerializer>(g)(fi);
                 }
 
-                static FieldSerializer _CreateFieldSerializer<U>(FieldInfo fi)
+                public static FieldSerializer _CreateFieldSerializer<U>(FieldInfo fi)
                 {
                     Func<T, U> getter = t =>
                     {
