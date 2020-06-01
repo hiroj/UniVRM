@@ -54,6 +54,11 @@ namespace UniGLTF
 
         glTF glTF;
 
+        public glTF GLTF
+        {
+            get{ return glTF;}
+        }
+
         public bool UseSparseAccessorForBlendShape
         {
             get;
@@ -140,7 +145,7 @@ namespace UniGLTF
             Copy.transform.ReverseZRecursive();
         }
 
-        public void Export()
+        public virtual void Export()
         {
             FromGameObject(glTF, Copy, UseSparseAccessorForBlendShape);
         }

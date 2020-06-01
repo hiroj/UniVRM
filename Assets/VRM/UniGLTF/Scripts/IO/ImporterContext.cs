@@ -311,7 +311,7 @@ namespace UniGLTF
 
         void RestoreOlderVersionValues()
         {
-            var parsed = UniJSON.JsonParser.Parse(Json);
+            var parsed = JsonParser.Parse(Json);
             for (int i = 0; i < GLTF.images.Count; ++i)
             {
                 if (string.IsNullOrEmpty(GLTF.images[i].name))

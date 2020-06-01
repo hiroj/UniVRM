@@ -4,7 +4,7 @@ using UniJSON;
 
 namespace UniGLTF
 {
-    public class GLTFJsonFormatter: UniJSON.JsonFormatter
+    public class GLTFJsonFormatter: JsonFormatter
     {
         public void GLTFValue(JsonSerializableBase s)
         {

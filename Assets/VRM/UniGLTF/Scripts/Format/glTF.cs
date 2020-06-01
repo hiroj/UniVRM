@@ -287,7 +287,15 @@ namespace UniGLTF
         {
             get
             {
-                return scenes[scene].nodes;
+                if(scenes != null && scenes.Count > scene &&
+                    scenes[scene].nodes != null && scenes[scene].nodes.Any())
+                {
+                    return scenes[scene].nodes;
+                }
+                else
+                {
+                    return new int[] { };
+                }
             }
         }
 

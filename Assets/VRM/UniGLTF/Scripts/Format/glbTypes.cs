@@ -8,6 +8,7 @@ namespace UniGLTF
     {
         JSON = 0x4E4F534A,
         BIN = 0x004E4942,
+        UNKNOWN = 0x00000000,
     }
 
     public struct GlbHeader
